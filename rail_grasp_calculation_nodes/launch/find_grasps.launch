@@ -1,0 +1,47 @@
+<launch>
+  <arg name="remove_table" default="false" />
+  <arg name="neighborhood_radius" default="0.02" />
+  <arg name="orientation_threshold" default="0.1" />
+  <arg name="cluster_size" default="5" />
+  <arg name="local_window_size" default="0.015" />
+
+  <arg name="num_samples" default="2000" />
+
+  <!-- note: hand parameter defaults are measurements of the robotiq-85 gripper -->
+  <arg name="finger_width" default="0.014" />
+  <arg name="hand_outer_diameter" default="0.112" />
+  <arg name="hand_depth" default="0.021" />
+  <arg name="init_bite" default="0.005" />
+  <arg name="hand_height" default="0.037" />
+
+  <!-- Agile grasp -->
+  <node name="find_grasps" pkg="rail_agile" type="find_grasps" output="screen">
+    <param name="cloud_type" value="0" />
+    <param name="svm_file_name" value="$(find rail_agile)/svm_032015_20_20_same" />
+    <param name="num_samples" value="$(arg num_samples)" />
+    <param name="num_threads" value="4" />
+    <param name="num_clouds" value="1" />
+    <param name="finger_width" value="$(arg finger_width)" />
+    <param name="hand_outer_diameter" value="$(arg hand_outer_diameter)" />
+    <param name="hand_depth" value="$(arg hand_depth)" />
+    <param name="init_bite" value="$(arg init_bite)" />
+    <param name="hand_height" value="$(arg hand_height)" />
+    <rosparam param="workspace"> [-0.5, 0.5, -0.5, 0.5, 0.0, 2.0] </rosparam>
+    <rosparam param="camera_pose"> [1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1] </rosparam>
+    <param name="min_inliers" value="4" />
+    <param name="plotting" value="0" />
+    <param name="marker_lifetime" value="0.0" />
+  </node>
+
+  <node name="grasp_sampler" pkg="rail_grasp_calculation_nodes" type="grasp_sampler" output="screen">
+    <param name="neighborhood_radius" value="$(arg neighborhood_radius)" />
+    <param name="orientation_threshold" value="$(arg orientation_threshold)" />
+    <param name="cluster_size" value="$(arg cluster_size)" />
+    <param name="local_window_size" value="$(arg local_window_size)" />
+    <param name="remove_table" value="$(arg remove_table)" />
+  </node>
+
+</launch>

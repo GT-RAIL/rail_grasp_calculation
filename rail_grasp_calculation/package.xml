@@ -1,0 +1,30 @@
+<package>
+  <name>rail_grasp_calculation</name>
+  <version>0.0.0</version>
+  <description>
+    Metapackage for RAIL grasp calculation. Includes ROS messages supporting autonomous grasp calculation
+    from point clouds, ROS nodes to perform autonomous grasp evaluation and ranking, and other supporting functionality.
+
+    This metapackage is intended to refine and rank a set of previously-calculated grasp candidates.  One example grasp
+    candidate is the antipodal grasp sampling provided by AGILE grasp.  A ROS package with antipodal grasp sampling
+    designed to provide grasps for RAIL grasp calculation is provided at https://github.com/GT-RAIL/rail_agile, but any
+    grasp sampler or other source of grasps can be used.  See the ROS wiki page for API details.
+  </description>
+
+  <author email="dekent@gatech.edu">David Kent</author>
+  <maintainer email="dekent@gatech.edu">David Kent</maintainer>
+
+  <url type="website">http://ros.org/wiki/rail_grasp_calculation</url>
+  <url type="bugtracker">https://github.com/GT-RAIL/rail_grasp_calculation/issues</url>
+  <url type="repository">https://github.com/GT-RAIL/rail_grasp_calculation</url>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <run_depend>rail_grasp_calculation_msgs</run_depend>
+  <run_depend>rail_grasp_calculation_nodes</run_depend>
+  <export>
+    <metapackage />
+  </export>
+</package>

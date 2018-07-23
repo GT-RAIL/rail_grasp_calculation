@@ -1,0 +1,9 @@
+# Define the goal
+sensor_msgs/PointCloud2 cloud                    # point cloud from which to sample grasps
+rail_grasp_calculation_msgs/Workspace workspace  # grasp sampling workspace
+---
+# Define the result
+geometry_msgs/PoseArray graspList          # list of sampled antipodal grasps
+---
+# Define a feedback message
+string currentAction                       # text feedback indicating what's currently being executed

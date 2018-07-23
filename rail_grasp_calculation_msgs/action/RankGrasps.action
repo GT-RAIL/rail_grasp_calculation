@@ -1,0 +1,21 @@
+# Define the goal
+
+# Required: list of sampled grasps, to be clustered and ranked
+geometry_msgs/PoseArray graspList
+
+# Required: complete point cloud of the environment
+sensor_msgs/PointCloud2 sceneCloud
+
+# Optional: segmented point cloud of an object of interest; required for object-based grasp ranking
+sensor_msgs/PointCloud2 segmentedCloud
+
+# Optional: workspace for grasp calculation; required for point-of-interest grasp ranking
+rail_grasp_calculation_msgs/Workspace workspace         # Note: this is defined in the frame of the sceneCloud
+
+---
+# Define the result
+geometry_msgs/PoseArray graspList                       # ranked list of grasps
+rail_grasp_calculation_msgs/Heuristics[] heuristicList  # ranking heuristics, corresponds with grasps
+---
+# Define a feedback message
+string currentAction                                    # text feedback indicating what's currently being executed
