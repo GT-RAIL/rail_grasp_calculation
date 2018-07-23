@@ -1,7 +1,7 @@
 # rail_grasp_calculation
-Metapackage for grasp pose clustering and heuristic calculation for grasp ranking, as well as supporting messages
-for connecting to grasp samplers and calling the grasp ranking actions.  More details on the specific methods are
-upcoming in a future publication.
+Metapackage for grasp pose clustering and heuristic calculation for grasp ranking, as well as supporting messages for connecting to grasp samplers and calling the grasp ranking actions.  More details on the specific methods (particularly for the `rank_grasps_object` and `rank_grasps_scene` action servers) will be presented at IROS 2018, "Adaptive Autonomous Grasp Selection via Pairwise Ranking".
+
+(For previous details on the development of the methods in this package, particularly for teh `rank_grasps_poi` action server, see the Point-and-Click interaction approach described in "[A Comparison of Remote Robot Teleoperation Interfaces for General Object Manipulation](https://dl.acm.org/citation.cfm?id=3020249)".)
 
 ## Description
 Grasp ranking can be performed for three different situations, depending on the application and system setup.  Each
