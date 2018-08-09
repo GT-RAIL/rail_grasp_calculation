@@ -17,6 +17,9 @@ GraspSampler::GraspSampler() :
   neighborhoodRadius = pow(neighborhoodRadius, 2);
   orientationThreshold = pow(orientationThreshold, 2);
 
+  debug_pub = pnh.advertise< pcl::PointCloud<pcl::PointXYZRGB> >("sampler_cloud_debug", 1);
+  debug_pub2 = pnh.advertise< pcl::PointCloud<pcl::PointXYZRGB> >("sampler_cloud_cropped_debug", 1);
+
   rankGraspsObjectServer.start();
   rankGraspsSceneServer.start();
   rankGraspsPOIServer.start();
@@ -230,7 +233,7 @@ void GraspSampler::rankGraspsPOI(const rail_grasp_calculation_msgs::RankGraspsGo
   pcl::PCLPointCloud2::Ptr tempCloud(new pcl::PCLPointCloud2);
   pcl::PointCloud<pcl::PointXYZRGB>::Ptr convertedCloud(new pcl::PointCloud<pcl::PointXYZRGB>);
   transformedCloud.header.frame_id = goal->graspList.header.frame_id;
-  pcl_ros::transformPointCloud(transformedCloud.header.frame_id, cloud, transformedCloud, tfListener);
+  pcl_ros::transformPointCloud(transformedCloud.header.frame_id, goal->sceneCloud, transformedCloud, tfListener);
   pcl_conversions::toPCL(transformedCloud, *tempCloud);
   pcl::fromPCLPointCloud2(*tempCloud, *convertedCloud);
 
@@ -286,20 +289,28 @@ void GraspSampler::rankGraspsPOI(const rail_grasp_calculation_msgs::RankGraspsGo
     extractTable.setNegative(true);
     extractTable.filter(*tableRemovedCloud);
 
+    debug_pub2.publish(tableRemovedCloud);
+
     //re-crop
     cropToWorkspace(goal->workspace, tableRemovedCloud, croppedCloud);
+    debug_pub.publish(croppedCloud);
+
   }
+
+
+
   if (croppedCloud->size() == 0)
   {
     ROS_INFO("No points in plane-removed point cloud, cannot calculate grasps...");
     rankGraspsPOIServer.setSucceeded(result);
     return;
   }
+
   kdTree->setInputCloud(croppedCloud);
   clusterer.setInputCloud(croppedCloud);
-  clusterer.setClusterTolerance(0.01);
-  clusterer.setMinClusterSize(20);
-  clusterer.setMaxClusterSize(10000);
+  clusterer.setClusterTolerance(0.05);
+  clusterer.setMinClusterSize(5);
+  clusterer.setMaxClusterSize(100000);
   clusterer.setSearchMethod(kdTree);
   clusterer.extract(clusterIndices);
 

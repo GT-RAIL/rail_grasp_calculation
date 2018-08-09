@@ -9,8 +9,8 @@
 
   <!-- note: hand parameter defaults are measurements of the robotiq-85 gripper -->
   <arg name="finger_width" default="0.014" />
-  <arg name="hand_outer_diameter" default="0.112" />
-  <arg name="hand_depth" default="0.021" />
+  <arg name="hand_outer_diameter" default="0.212" />
+  <arg name="hand_depth" default="0.04" />
   <arg name="init_bite" default="0.005" />
   <arg name="hand_height" default="0.037" />
 
@@ -26,7 +26,7 @@
     <param name="hand_depth" value="$(arg hand_depth)" />
     <param name="init_bite" value="$(arg init_bite)" />
     <param name="hand_height" value="$(arg hand_height)" />
-    <rosparam param="workspace"> [-0.5, 0.5, -0.5, 0.5, 0.0, 2.0] </rosparam>
+    <rosparam param="workspace"> [-10.5, 10.5, -10.5, 10.5, -10.5, 10.5] </rosparam>
     <rosparam param="camera_pose"> [1, 0, 0, 0,
       0, 1, 0, 0,
       0, 0, 1, 0,

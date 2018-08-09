@@ -122,6 +122,9 @@ private:
   actionlib::SimpleActionServer<rail_grasp_calculation_msgs::RankGraspsAction> rankGraspsSceneServer;
   actionlib::SimpleActionServer<rail_grasp_calculation_msgs::RankGraspsAction> rankGraspsPOIServer;
 
+  ros::Publisher debug_pub;
+  ros::Publisher debug_pub2;
+
   boost::recursive_mutex cloudMutex;
 
   double neighborhoodRadius;
