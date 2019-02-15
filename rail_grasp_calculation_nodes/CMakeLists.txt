@@ -20,7 +20,7 @@ find_package(catkin REQUIRED COMPONENTS
   visualization_msgs
 )
 
-find_package(Eigen REQUIRED)
+find_package(Eigen3 REQUIRED)
 
 ################################################
 ## Declare ROS messages, services and actions ##
@@ -42,18 +42,18 @@ catkin_package()
 ## Specify additional locations of header files
 include_directories(include
   ${catkin_INCLUDE_DIRS}
-  ${EIGEN_INCLUDE_DIRS}
+  ${EIGEN3_INCLUDE_DIRS}
 )
 
 add_executable(grasp_sampler
   src/GraspSampler.cpp src/PoseWithHeuristic.cpp
 )
-add_dependencies(grasp_sampler
-  rail_manipulation_msgs_gencpp
-)
+# add_dependencies(grasp_sampler
+#   rail_manipulation_msgs_gencpp
+# )
 target_link_libraries(grasp_sampler
   ${catkin_LIBRARIES}
-  ${EIGEN_INCLUDE_DIRS}
+  ${EIGEN3_INCLUDE_DIRS}
 )
 
 #############
