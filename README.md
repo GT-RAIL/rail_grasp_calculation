@@ -32,10 +32,10 @@ section, depending on the grasp density.
 ## rail_grasp_calculation_msgs
 This package contains action definitions, messages, and services used for grasp sampling and ranking.  For more details,
 check the comments within the message definitions themselves.  The primary actions are as follows:
-* [RankGrasps.action](https://github.com/GT-RAIL/rail_grasp_calculation/blob/master/rail_grasp_calculation_msgs/action/RankGrasps.action):
+* [RankGrasps.action](https://github.com/GT-RAIL/rail_grasp_calculation/blob/indigo-devel/rail_grasp_calculation_msgs/action/RankGrasps.action):
 Action definition for all grasp ranking.  Intended usage: requires an unranked grasp list and point cloud information
 as input, and returns a list of ranked grasps.
-* [SampleGrasps.action](https://github.com/GT-RAIL/rail_grasp_calculation/blob/master/rail_grasp_calculation_msgs/action/SampleGrasps.action):
+* [SampleGrasps.action](https://github.com/GT-RAIL/rail_grasp_calculation/blob/indigo-devel/rail_grasp_calculation_msgs/action/SampleGrasps.action):
 Action interface for initial grasp sampling.  This is optionally included for implementation of new ROS packages, and
 is not used directly in this package.  Intended usage: requires a point cloud and a workspace as input, and returns a list of grasps sampled from
 the given point cloud within the given workspace.  For an example, see the [rail_agile](https://github.com/GT-RAIL/rail_agile)
@@ -53,16 +53,16 @@ This node performs grasp candidate evaluation by computing a set of heuristics o
 of grasp hypotheses computed from an outside source, such as the [rail_agile](https://github.com/GT-RAIL/rail_agile)
 package.  Relevant parameters, action servers, topics, and services are as follows:
 * **Action Servers**
-  * `rank_grasps_object`([rail_grasp_calculation_msgs/RankGraspsAction](https://github.com/GT-RAIL/rail_grasp_calculation/blob/master/rail_grasp_calculation_msgs/action/RankGrasps.action))  
+  * `rank_grasps_object`([rail_grasp_calculation_msgs/RankGraspsAction](https://github.com/GT-RAIL/rail_grasp_calculation/blob/indigo-devel/rail_grasp_calculation_msgs/action/RankGrasps.action))  
   Rank grasps for a specific object.  Requires an unranked list of sampled grasps, a
   point cloud of a scene containing the object of interest, and a segmented point cloud of only the object of interest
   (with the rest of the scene information removed).  Returns a ranked list of grasps, as well as the heuristic values 
   calculated for each grasp.
-  * `rank_grasps_scene`([rail_grasp_calculation_msgs/RankGraspsAction](https://github.com/GT-RAIL/rail_grasp_calculation/blob/master/rail_grasp_calculation_msgs/action/RankGrasps.action))  
+  * `rank_grasps_scene`([rail_grasp_calculation_msgs/RankGraspsAction](https://github.com/GT-RAIL/rail_grasp_calculation/blob/indigo-devel/rail_grasp_calculation_msgs/action/RankGrasps.action))  
   Rank grasps calculated over a full scene.  Requires an unranked list of sampled
   grasps, and a point cloud of a scene the grasps were sampled from.  Returns a ranked list of grasps, as well as the
   heuristic values calculated for each grasp.
-  * `rank_grasps_poi`([rail_grasp_calculation_msgs/RankGraspsAction](https://github.com/GT-RAIL/rail_grasp_calculation/blob/master/rail_grasp_calculation_msgs/action/RankGrasps.action))  
+  * `rank_grasps_poi`([rail_grasp_calculation_msgs/RankGraspsAction](https://github.com/GT-RAIL/rail_grasp_calculation/blob/indigo-devel/rail_grasp_calculation_msgs/action/RankGrasps.action))  
   Rank grasps calculated around a point-of-interest.  Requires an unranked list of
   sampled grasps, a point cloud of a scene, and a workspace centered on the point-of-interest within which the grasps
   were calculated.  Returns a ranked list of grasps, as well as the heuristic values calculated for each grasp.
