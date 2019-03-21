@@ -48,9 +48,9 @@ include_directories(include
 add_executable(grasp_sampler
   src/GraspSampler.cpp src/PoseWithHeuristic.cpp
 )
-# add_dependencies(grasp_sampler
-#   rail_manipulation_msgs_gencpp
-# )
+add_dependencies(grasp_sampler
+  rail_grasp_calculation_msgs_gencpp
+)
 target_link_libraries(grasp_sampler
   ${catkin_LIBRARIES}
   ${EIGEN3_INCLUDE_DIRS}
