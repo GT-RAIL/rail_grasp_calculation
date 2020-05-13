@@ -373,10 +373,20 @@ void GraspSampler::rankGraspsPOI(const rail_grasp_calculation_msgs::RankGraspsGo
     double h2 = heuristicAlignment(finalPoses.poses[i], clusters[minClusterIndex]);
 
     //heuristic 3: distance from clicked point
-    double h3 = sqrt(squaredDistance(finalPoses.poses[i].position, goal->workspace.roiCenter)) /
-                sqrt(pow(goal->workspace.roiDimensions.x/2.0, 2)
-                     + pow(goal->workspace.roiDimensions.y/2.0, 2)
-                     + pow(goal->workspace.roiDimensions.z/2.0, 2));
+    double denom = 1.0;
+    if (goal->workspace.mode == rail_grasp_calculation_msgs::Workspace::WORKSPACE_VOLUME)
+    {
+      denom = sqrt(pow((goal->workspace.x_max - goal->workspace.x_min)/2.0, 2)
+                   + pow((goal->workspace.y_max - goal->workspace.y_min)/2.0, 2)
+                   + pow((goal->workspace.z_max - goal->workspace.z_min)/2.0, 2));
+    }
+    else if (goal->workspace.mode == rail_grasp_calculation_msgs::Workspace::CENTERED_ROI)
+    {
+      denom = sqrt(pow(goal->workspace.roiDimensions.x/2.0, 2)
+                   + pow(goal->workspace.roiDimensions.y/2.0, 2)
+                   + pow(goal->workspace.roiDimensions.z/2.0, 2));
+    }
+    double h3 = sqrt(squaredDistance(finalPoses.poses[i].position, goal->workspace.roiCenter)) / denom;
 
     double h = 0.6*h1 + 0.25*h2 + 0.15*h3;
     PoseWithHeuristic rankedPose(finalPoses.poses[i], h);
